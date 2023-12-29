@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package books;
+
+option go_package = "v1/proto";
+
+message Book {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+}
+
+message BookFilterResponse {
+  string field = 1;
+  string value = 2;
+}
+
+message BookResponse {
+  Book book = 1;
+}
+
+message BookListResponse {
+  repeated Book books = 1;
+}
+
+service BookService {
+  rpc Save(Book) returns (BookResponse);
+  rpc Find(BookFilterResponse) returns (BookListResponse);
+}
