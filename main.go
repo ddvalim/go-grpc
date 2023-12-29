@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"google.golang.org/grpc"
 	"grpc/book"
 	"grpc/config"
@@ -31,6 +32,8 @@ func main() {
 	server := grpc.NewServer(opts...)
 
 	proto.RegisterBookServiceServer(server, book.NewService(db))
+
+	log.Printf("Server listening in port %d", config.APIPort)
 
 	server.Serve(l)
 }
